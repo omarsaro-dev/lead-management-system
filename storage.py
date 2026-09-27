@@ -4,7 +4,6 @@ from pathlib import Path
 from models import Lead
 
 
-# ??? ???????? ???? ???? ???????.
 DATA_FILE = Path(__file__).resolve().parent / "data" / "leads.json"
 
 
@@ -18,7 +17,6 @@ def load_leads():
     if not content.strip():
         return []
 
-    # ?? JSON ??? ???? ???? ??????? ??? ?? ????? ???????? ?????.
     data = json.loads(content)
     if not isinstance(data, list):
         raise ValueError("leads.json must contain a list: [ ... ]")
@@ -44,15 +42,12 @@ def save_leads(leads):
     for lead in leads:
         lead_data.append(lead.show_info())
 
-    # Validate the existing data before replacing it.
     load_leads()
 
-    # Write the new data first, so a write failure keeps the original file.
     temporary_file = DATA_FILE.with_suffix(".tmp")
     with open(temporary_file, "w", encoding="utf-8") as file:
         json.dump(lead_data, file, indent=4, ensure_ascii=False)
 
-    # Keep the previous version in leads.json.bak.
     if DATA_FILE.exists():
         shutil.copy2(DATA_FILE, DATA_FILE.with_suffix(".json.bak"))
     temporary_file.replace(DATA_FILE)

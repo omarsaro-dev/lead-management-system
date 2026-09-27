@@ -128,7 +128,6 @@ def main():
 
         choice = input("Choose: ").strip()
 
-        # Read the latest saved data before each operation.
         leads = load_leads()
 
         if choice == "1":
