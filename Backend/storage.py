@@ -1,10 +1,11 @@
 import sqlite3
+import os
 from contextlib import contextmanager
 from pathlib import Path
 
 from Backend.models import Lead
 
-DATA_DIR = Path(__file__).resolve().parent / "data"
+DATA_DIR = Path(os.getenv("LEAD_DATA_DIR", "/tmp/leadflow-data" if os.getenv("VERCEL") else Path(__file__).resolve().parent / "data"))
 DB_FILE = DATA_DIR / "leads.db"
 
 
