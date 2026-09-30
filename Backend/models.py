@@ -1,4 +1,4 @@
-from lead_manegment.Backend.validators import is_valid_email
+from Backend.validators import is_valid_email
 
 
 class Lead:

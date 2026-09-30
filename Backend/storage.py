@@ -2,7 +2,7 @@ import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
 
-from lead_manegment.Backend.models import Lead
+from Backend.models import Lead
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
 DB_FILE = DATA_DIR / "leads.db"

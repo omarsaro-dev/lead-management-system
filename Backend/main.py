@@ -1,7 +1,7 @@
 import sqlite3
 
-from lead_manegment.Backend.models import Lead
-from lead_manegment.Backend.storage import (
+from Backend.models import Lead
+from Backend.storage import (
     DB_FILE,
     count_leads,
     count_leads_by_service,
@@ -14,7 +14,7 @@ from lead_manegment.Backend.storage import (
     save_lead,
     update_lead_by_email,
 )
-from lead_manegment.Backend.validators import is_valid_email, is_valid_phone, is_valid_service
+from Backend.validators import is_valid_email, is_valid_phone, is_valid_service
 
 
 def add_lead():

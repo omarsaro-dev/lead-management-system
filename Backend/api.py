@@ -4,11 +4,8 @@ from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, field_validator
 
-import ngrok
-import uvicorn
-
-from lead_manegment.Backend.models import Lead
-from lead_manegment.Backend.storage import (
+from Backend.models import Lead
+from Backend.storage import (
     delete_lead_by_email,
     find_lead_by_email,
     load_leads,
@@ -16,17 +13,9 @@ from lead_manegment.Backend.storage import (
     update_lead_by_email,
     update_lead_qualification,
 )
-from lead_manegment.Backend.validators import is_valid_email, is_valid_phone, is_valid_service
+from Backend.validators import is_valid_email, is_valid_phone, is_valid_service
 
 app = FastAPI(title="Lead Management API", version="1.0.0")
-
-app = FastAPI()
-
-if __name__ == "__main__":
-    listener = ngrok.forward(8000, authtoken="3JznaRfqnVbB43R68KiRZC4fbov_3usn2bftuLEmFRzQJNZie")
-    print(f"Public URL: {listener.url()}")
-
-    uvicorn.run("api:app", host="127.0.0.1", port=8000)
 
 class LeadFields(BaseModel):
     name: str
