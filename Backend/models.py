@@ -1,4 +1,7 @@
-from Backend.validators import is_valid_email
+try:
+    from Backend.validators import is_valid_email
+except ModuleNotFoundError:
+    from validators import is_valid_email
 
 
 class Lead:

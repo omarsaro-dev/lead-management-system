@@ -3,7 +3,10 @@ import os
 from contextlib import contextmanager
 from pathlib import Path
 
-from Backend.models import Lead
+try:
+    from Backend.models import Lead
+except ModuleNotFoundError:
+    from models import Lead
 
 DATA_DIR = Path(os.getenv("LEAD_DATA_DIR", "/tmp/leadflow-data" if os.getenv("VERCEL") else Path(__file__).resolve().parent / "data"))
 DB_FILE = DATA_DIR / "leads.db"

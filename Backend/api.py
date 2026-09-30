@@ -4,16 +4,28 @@ from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, field_validator
 
-from Backend.models import Lead
-from Backend.storage import (
-    delete_lead_by_email,
-    find_lead_by_email,
-    load_leads,
-    save_lead,
-    update_lead_by_email,
-    update_lead_qualification,
-)
-from Backend.validators import is_valid_email, is_valid_phone, is_valid_service
+try:
+    from Backend.models import Lead
+    from Backend.storage import (
+        delete_lead_by_email,
+        find_lead_by_email,
+        load_leads,
+        save_lead,
+        update_lead_by_email,
+        update_lead_qualification,
+    )
+    from Backend.validators import is_valid_email, is_valid_phone, is_valid_service
+except ModuleNotFoundError:
+    from models import Lead
+    from storage import (
+        delete_lead_by_email,
+        find_lead_by_email,
+        load_leads,
+        save_lead,
+        update_lead_by_email,
+        update_lead_qualification,
+    )
+    from validators import is_valid_email, is_valid_phone, is_valid_service
 
 app = FastAPI(title="Lead Management API", version="1.0.0")
 
