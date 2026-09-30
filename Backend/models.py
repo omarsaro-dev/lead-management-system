@@ -1,4 +1,7 @@
-﻿class Lead:
+from lead_manegment.Backend.validators import is_valid_email
+
+
+class Lead:
     def __init__(self, name, email, phone, service, state):
         self.name = name
         self.email = email
@@ -33,6 +36,6 @@
         return services.get(self.service.lower(), "Other Service")
 
     def is_valid_email(self):
-        if "@" not in self.email or "." not in self.email:
+        if not is_valid_email(self.email):
             return "Invalid Email"
         return "Valid Email"
