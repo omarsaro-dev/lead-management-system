@@ -10,7 +10,9 @@ type Toast = { id: number; message: string; kind: "success" | "error" };
 interface DashboardContext {
   leads: Lead[]; loading: boolean; refreshing: boolean; error: string | null;
   connection: Connection; lastUpdated: Date | null; search: string;
+  statusFilter: string; serviceFilter: string;
   setSearch: (value: string) => void;
+  setStatusFilter: (value: string) => void; setServiceFilter: (value: string) => void;
   refresh: () => Promise<void>;
   notify: (message: string, kind?: Toast["kind"]) => void;
   setLeads: React.Dispatch<React.SetStateAction<Lead[]>>;
@@ -25,6 +27,8 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [connection, setConnection] = useState<Connection>("checking");
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [serviceFilter, setServiceFilter] = useState("");
   const [toasts, setToasts] = useState<Toast[]>([]);
   const previous = useRef<Connection>("checking");
   const inFlight = useRef(false);
@@ -65,7 +69,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     const toastTimers = timers.current;
     return () => { clearTimeout(initial); toastTimers.forEach(clearTimeout); window.removeEventListener("online", online); };
   }, [refresh]);
-  return <Context.Provider value={{ leads, setLeads, loading, refreshing, error, connection, lastUpdated, search, setSearch, refresh, notify }}>
+  return <Context.Provider value={{ leads, setLeads, loading, refreshing, error, connection, lastUpdated, search, setSearch, statusFilter, serviceFilter, setStatusFilter, setServiceFilter, refresh, notify }}>
     {children}
     <div className="toast-stack" aria-live="polite" aria-atomic="false">{toasts.map(toast => <div key={toast.id} className={`toast ${toast.kind}`} role={toast.kind === "error" ? "alert" : "status"}>
       {toast.kind === "success" ? <CheckCircle2 size={18} /> : <CircleAlert size={18} />}<span>{toast.message}</span><button className="icon-button" aria-label="Dismiss notification" onClick={() => setToasts(current => current.filter(item => item.id !== toast.id))}><X size={16} /></button>
